@@ -21,7 +21,7 @@ def predict(data: str):
     inputData = inputData.reshape(1, 1, 11)
     with graph.as_default():
         prediction = model.predict(inputData)
-    return boardSize*prediction[0][0]
+    return boardSize*prediction[0][0]*60*2
 
 
 @app.route('/')
@@ -45,7 +45,7 @@ def predict_charging_time():
 
 @app.route('/predict_distance')
 def predict_distance():
-    inputData = request.args['inputdata']
+    inputData =request.args['inputdata']
     batteryState = float(request.args['batteryState'])
     prediction = predict(inputData)
     consuptionTime = (batteryState*batteryCapacity+prediction)/powerConsupmtion
